@@ -13,10 +13,12 @@ TRANS = {}
 for c, l in zip(CYRILLIC_SYMBOLS, TRANSLATION):
     TRANS[ord(c)] = l
     TRANS[ord(c.upper())] = l.upper()
-    
+
+
 def normalize(name):
     """Change cyrillic letters to latin letters"""
     return name.translate(TRANS)
+
 
 # Dictionary for set the rules of sorting files
 extensions = {
@@ -28,11 +30,13 @@ extensions = {
     "unknown": [""]
     }
 
+
 def create_folders(path: Path):
     """ Checking for existing extensions folder. Create if not exist """
     for name in extensions.keys():
         if not path.joinpath(name).exists():
             path.joinpath(name).mkdir()
+
 
 def sort_files(path: Path):
     """ Pattern "**/*" recursively walk a directory
@@ -133,6 +137,7 @@ def sort_files(path: Path):
                     else:            
                         file.replace(unknown_folder / file.name)
 
+
 def delete_folders(path: Path):
     """ Delete all empty folders.
     Pattern "*/**" recursively walk a directory
@@ -143,6 +148,7 @@ def delete_folders(path: Path):
                 f.rmdir()
             except OSError:
                 pass
+
 
 def unpack_archives(path: Path):
     """ Unpacking archive """
@@ -157,6 +163,7 @@ def unpack_archives(path: Path):
                 continue
     else:
         pass
+
 
 def main():
     path = None
