@@ -4,9 +4,66 @@ from pathlib import Path
 
 # Create rule of chanding cyrillic letters to latin letters
 CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ?<>,!@#[]#$%^&*()-=; "
-TRANSLATION = ("a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u",
-               "f", "h", "ts", "ch", "sh", "sch", "", "y", "", "e", "yu", "ya", "je", "i", "ji", "g", "_", "_", "_", "_",
-               "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_")
+TRANSLATION = (
+    "a",
+    "b",
+    "v",
+    "g",
+    "d",
+    "e",
+    "e",
+    "j",
+    "z",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "r",
+    "s",
+    "t",
+    "u",
+    "f",
+    "h",
+    "ts",
+    "ch",
+    "sh",
+    "sch",
+    "",
+    "y",
+    "",
+    "e",
+    "yu",
+    "ya",
+    "je",
+    "i",
+    "ji",
+    "g",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+    "_",
+)
 
 TRANS = {}
 
@@ -22,28 +79,35 @@ def normalize(name):
 
 # Dictionary for set the rules of sorting files
 extensions = {
-    "images": ['.jpeg', '.png', '.jpg', '.svg'],
-    "video": ['.avi', '.mp4', '.mov', '.mkv'],
-    "documents": ['.doc', '.docx', '.txt', '.pdf', '.xlsx', '.pptx'],
-    "music": ['.mp3', '.ogg', '.wav', '.amr'],
-    "archives": ['.zip', '.gz', '.tar'],
-    "unknown": [""]
-    }
+    "images": [".jpeg", ".png", ".jpg", ".svg"],
+    "video": [".avi", ".mp4", ".mov", ".mkv"],
+    "documents": [".doc", ".docx", ".txt", ".pdf", ".xlsx", ".pptx"],
+    "music": [".mp3", ".ogg", ".wav", ".amr"],
+    "archives": [".zip", ".gz", ".tar"],
+    "unknown": [""],
+}
 
 
 def create_folders(path: Path):
-    """ Checking for existing extensions folder. Create if not exist """
+    """Checking for existing extensions folder. Create if not exist"""
     for name in extensions.keys():
         if not path.joinpath(name).exists():
             path.joinpath(name).mkdir()
 
 
 def sort_files(path: Path):
-    """ Pattern "**/*" recursively walk a directory
-    for searching all files including folders """
+    """Pattern "**/*" recursively walk a directory
+    for searching all files including folders"""
     for obj in path.glob("**/*"):
         flag = True
-        for i in ['images', 'video', 'documents', 'music', 'archives', 'unknown']: # script to ignore these folders
+        for i in [
+            "images",
+            "video",
+            "documents",
+            "music",
+            "archives",
+            "unknown",
+        ]:  # script to ignore these folders
             if i in str(obj):
                 flag = False
                 break
@@ -61,10 +125,12 @@ def sort_files(path: Path):
                         lst_img.append(f.name)
                     if file.name in lst_img:
                         add_name = f"_({str(len(lst_img))})"
-                        new_file = file.with_name(file.stem + add_name).with_suffix(file.suffix)
+                        new_file = file.with_name(file.stem + add_name).with_suffix(
+                            file.suffix
+                        )
                         file.rename(new_file)
                         new_file.replace(img_folder / new_file.name)
-                    else:            
+                    else:
                         file.replace(img_folder / file.name)
 
             elif file.suffix in extensions["video"]:
@@ -75,10 +141,12 @@ def sort_files(path: Path):
                         lst_vd.append(f.name)
                     if file.name in lst_vd:
                         add_name = f"_({str(len(lst_vd))})"
-                        new_file = file.with_name(file.stem + add_name).with_suffix(file.suffix)
+                        new_file = file.with_name(file.stem + add_name).with_suffix(
+                            file.suffix
+                        )
                         file.rename(new_file)
                         new_file.replace(video_folder / new_file.name)
-                    else:            
+                    else:
                         file.replace(video_folder / file.name)
 
             elif file.suffix in extensions["documents"]:
@@ -89,10 +157,12 @@ def sort_files(path: Path):
                         lst_doc.append(f.name)
                     if file.name in lst_doc:
                         add_name = f"_({str(len(lst_doc))})"
-                        new_file = file.with_name(file.stem + add_name).with_suffix(file.suffix)
+                        new_file = file.with_name(file.stem + add_name).with_suffix(
+                            file.suffix
+                        )
                         file.rename(new_file)
                         new_file.replace(doc_folder / new_file.name)
-                    else:            
+                    else:
                         file.replace(doc_folder / file.name)
 
             elif file.suffix in extensions["music"]:
@@ -103,7 +173,9 @@ def sort_files(path: Path):
                         lst_msc.append(f.name)
                     if file.name in lst_msc:
                         add_name = f"_({str(len(lst_msc))})"
-                        new_file = file.with_name(file.stem + add_name).with_suffix(file.suffix)
+                        new_file = file.with_name(file.stem + add_name).with_suffix(
+                            file.suffix
+                        )
                         file.rename(new_file)
                         new_file.replace(msc_folder / new_file.name)
                     else:
@@ -117,10 +189,12 @@ def sort_files(path: Path):
                         lst_arch.append(f.name)
                     if file.name in lst_arch:
                         add_name = f"_({str(len(lst_arch))})"
-                        new_file = file.with_name(file.stem + add_name).with_suffix(file.suffix)
+                        new_file = file.with_name(file.stem + add_name).with_suffix(
+                            file.suffix
+                        )
                         file.rename(new_file)
                         new_file.replace(arch_folder / new_file.name)
-                    else:            
+                    else:
                         file.replace(arch_folder / file.name)
 
             else:
@@ -131,17 +205,19 @@ def sort_files(path: Path):
                         lst_unk.append(f.name)
                     if file.name in lst_unk:
                         add_name = f"_({str(len(lst_unk))})"
-                        new_file = file.with_name(file.stem + add_name).with_suffix(file.suffix)
+                        new_file = file.with_name(file.stem + add_name).with_suffix(
+                            file.suffix
+                        )
                         file.rename(new_file)
                         new_file.replace(unknown_folder / new_file.name)
-                    else:            
+                    else:
                         file.replace(unknown_folder / file.name)
 
 
 def delete_folders(path: Path):
-    """ Delete all empty folders.
+    """Delete all empty folders.
     Pattern "*/**" recursively walk a directory
-    for searching only folders. With [::-1] start walk from deepest level """
+    for searching only folders. With [::-1] start walk from deepest level"""
     for f in list(path.glob("*/**"))[::-1]:
         if f.is_dir:
             try:
@@ -151,7 +227,7 @@ def delete_folders(path: Path):
 
 
 def unpack_archives(path: Path):
-    """ Unpacking archive """
+    """Unpacking archive"""
     path_folder = path / "archives"
     if path_folder.exists():
         for f in path_folder.iterdir():
@@ -169,7 +245,7 @@ def main():
     path = None
     try:
         path = Path(sys.argv[1])
-        print(f'Start sorting files in folder: {path}')
+        print(f"Start sorting files in folder: {path}")
     except IndexError:
         print("Please enter valid path")
 
@@ -182,4 +258,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

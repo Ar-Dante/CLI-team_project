@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 def is_id_exist(func):
-    """ Decorator checks if id exists and it saves changes to pickle-file """
+    """Decorator checks if id exists and it saves changes to pickle-file"""
 
     def wrapper(*args):
         id_ = args[1]
@@ -13,6 +13,7 @@ def is_id_exist(func):
             return result
         else:
             return f"\nThe note with ID: {id_} is not exists\n"
+
     return wrapper
 
 
@@ -52,7 +53,7 @@ class Notebook:
         self.read_from_file()
 
     def add_new_note(self, note: RecordNote):
-        self.notes[self.counter+1] = note
+        self.notes[self.counter + 1] = note
         self.counter += 1
         self.save_to_file()
 
@@ -87,8 +88,10 @@ class Notebook:
     def show_note(self, id_):
         tgs = [tg.word.lower() for tg in self.notes[int(id_)].tags]
         tags = ", ".join(tgs)
-        return f"\nid: {id_}     date: {self.notes[int(id_)].date} " \
-               f"\n{self.notes[int(id_)].note}\ntags: {tags} \n========\n "
+        return (
+            f"\nid: {id_}     date: {self.notes[int(id_)].date} "
+            f"\n{self.notes[int(id_)].note}\ntags: {tags} \n========\n "
+        )
 
     def search_note(self, text_to_search: str):
         for id_, value in self.notes.items():

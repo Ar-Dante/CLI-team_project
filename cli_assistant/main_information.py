@@ -12,7 +12,7 @@ class Info(ABC):
 
 
 class ContactInfo(Info):
-    def get_info(text_to_search:str):
+    def get_info(text_to_search: str):
         text_to_search = text_to_search.strip()
         if text_to_search[0].isalpha():
             name = text_to_search.title()
@@ -22,7 +22,11 @@ class ContactInfo(Info):
             else:
                 return f"\nContact {name.title()} does not exist.\n"
 
-        elif text_to_search[0].isdigit() or text_to_search[0] in ("+", "(") and text_to_search[1].isdigit():
+        elif (
+            text_to_search[0].isdigit()
+            or text_to_search[0] in ("+", "(")
+            and text_to_search[1].isdigit()
+        ):
             phone = Phone.validate_phone(text_to_search)
             for record in address_book.values():
                 lst = [phone.value for phone in record.phones]
@@ -73,7 +77,7 @@ class NotebookInfo(Info):
 
 class TaskbookInfo(Info):
     def get_info(data):
-        result = '\n'
+        result = "\n"
         if len(tasklist.task_lst) > 0:
             for k, v in tasklist.task_lst.items():
                 result += f"=== ID: {k} === {v.see_task()}\n"

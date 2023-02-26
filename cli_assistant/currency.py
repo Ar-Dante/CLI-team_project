@@ -4,13 +4,18 @@ import requests
 
 
 def get_currency(currencyname):
-    """ Функція для отримання курсу вибраної валюти по Get - запиту """
+    """Функція для отримання курсу вибраної валюти по Get - запиту"""
     try:
         today = datetime.now().strftime("%Y%m%d")
-        URL = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode='\
-              + currencyname + '&date=' + today + '&json'
+        URL = (
+            "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode="
+            + currencyname
+            + "&date="
+            + today
+            + "&json"
+        )
         content = requests.get(URL)
-        headers = {'User-Agent':'Mozilla/5.0'}
+        headers = {"User-Agent": "Mozilla/5.0"}
         result = json.loads(content.text)[0]
     except Exception:
         return "\nProblems with network\n"

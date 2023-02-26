@@ -9,7 +9,7 @@ from .main_information import *
 
 
 def save_to_pickle():
-    """ Save address book in pickle file"""
+    """Save address book in pickle file"""
 
     with open("address_book.bin", "wb") as fh:
         pickle.dump(address_book.data, fh)
@@ -56,7 +56,7 @@ def sh_notes(value):
 def del_notes(id_):
     nb.to_remove_note(id_)
     nb.save_to_file()
-    return f'\nNote ID: {id_} was delete.\n'
+    return f"\nNote ID: {id_} was delete.\n"
 
 
 @input_error
@@ -85,7 +85,7 @@ def get_curr(value):
 
 @input_error
 def add_contact(value):
-    """ Add new contact to address book """
+    """Add new contact to address book"""
 
     name, *phones = value.lower().title().strip().split()
     name = Name(name.lower().title())
@@ -104,13 +104,13 @@ def add_contact(value):
 
 @input_error
 def show_all(s):
-    """ Функція виводить всі записи в телефонній книзі """
+    """Функція виводить всі записи в телефонній книзі"""
     return AddressBookInfo.get_info(s)
 
 
 @input_error
 def remove_contact(name: str):
-    """Функція для видалення контакта з книги """
+    """Функція для видалення контакта з книги"""
 
     record = address_book[name.strip().lower().title()]
     address_book.del_record(record.name.value)
@@ -120,7 +120,7 @@ def remove_contact(name: str):
 
 @input_error
 def add_phone(value):
-    """ Функція для додавання телефону контакта """
+    """Функція для додавання телефону контакта"""
 
     name, phone = value.lower().strip().title().split()
 
@@ -134,7 +134,7 @@ def add_phone(value):
 
 @input_error
 def remove_phone(value):
-    """ Функція для видалення телефону контакта """
+    """Функція для видалення телефону контакта"""
     name, phone = value.lower().title().strip().split()
 
     if name.title() in address_book:
@@ -147,13 +147,12 @@ def remove_phone(value):
 
 @input_error
 def change_ph(value: str):
-    """ Функція для заміни телефону контакта """
+    """Функція для заміни телефону контакта"""
 
     name, old_phone, new_phone = value.split()
 
     if name.strip().lower().title() in address_book:
-        address_book[name.strip().lower().title()].change_phone(
-            old_phone, new_phone)
+        address_book[name.strip().lower().title()].change_phone(old_phone, new_phone)
         save_to_pickle()
     else:
         return f"\nContact {name.title()} does not exists\n"
@@ -161,13 +160,13 @@ def change_ph(value: str):
 
 @input_error
 def contact(value):
-    """ Функція відображає дані абонента, по імені або номеру телефона """
+    """Функція відображає дані абонента, по імені або номеру телефона"""
     return ContactInfo.get_info(value)
 
 
 @input_error
 def add_em(value):
-    """ Функція для додавання e-mail контакта """
+    """Функція для додавання e-mail контакта"""
 
     name, email = value.split()
     name = name.title()
@@ -181,7 +180,7 @@ def add_em(value):
 
 @input_error
 def remove_em(value):
-    """ Функція для видалення e-mail контакта """
+    """Функція для видалення e-mail контакта"""
 
     name, email = value.split()
     name = name.title()
@@ -196,7 +195,7 @@ def remove_em(value):
 
 @input_error
 def change_em(value: str):
-    """ Функція для заміни e-mail контакта """
+    """Функція для заміни e-mail контакта"""
 
     name, old_em, new_em = value.split()
 
@@ -210,7 +209,7 @@ def change_em(value: str):
 
 @input_error
 def add_adrs(value):
-    """ Функція для додавання адреси контакта """
+    """Функція для додавання адреси контакта"""
 
     name, address = value.split(" ", 1)
     name = name.title()
@@ -224,7 +223,7 @@ def add_adrs(value):
 
 @input_error
 def change_adrs(value):
-    """ Функція для зміни адреси контакта """
+    """Функція для зміни адреси контакта"""
 
     name, address = value.split(" ", 1)
     name = name.title()
@@ -238,7 +237,7 @@ def change_adrs(value):
 
 @input_error
 def remove_adrs(value):
-    """ Функція для видалення адреси контакта """
+    """Функція для видалення адреси контакта"""
 
     name = value.lower().title().strip()
     if name.title() in address_book:
@@ -251,7 +250,7 @@ def remove_adrs(value):
 
 @input_error
 def remove_bd(value):
-    """ Функція для видалення дня народження контакта контакта """
+    """Функція для видалення дня народження контакта контакта"""
 
     name = value.lower().title().strip()
 
@@ -265,7 +264,7 @@ def remove_bd(value):
 
 @input_error
 def add_contact_birthday(value):
-    """ Функція для додавання дня народження контакта к книгу """
+    """Функція для додавання дня народження контакта к книгу"""
 
     name, birthday = value.lower().strip().split()
 
@@ -279,7 +278,7 @@ def add_contact_birthday(value):
 
 @input_error
 def days_to_bd(name):
-    """ Функція виводить кількість днів до дня народження контакта """
+    """Функція виводить кількість днів до дня народження контакта"""
 
     if name.title() in address_book:
         if not address_book[name.title()].birthday is None:
@@ -293,9 +292,9 @@ def days_to_bd(name):
 
 @input_error
 def get_birthdays(value=None):
-    """ Функція виводить перелік іменинників за період """
+    """Функція виводить перелік іменинників за період"""
 
-    if value.strip() == '':
+    if value.strip() == "":
         period = 7
     else:
         period = int(value.strip())
@@ -304,7 +303,7 @@ def get_birthdays(value=None):
 
 @input_error
 def change_bd(value):
-    """ Функція для зміни дня народження контакта """
+    """Функція для зміни дня народження контакта"""
 
     name, new_birthday = value.lower().strip().split()
     if name.title() in address_book:
@@ -318,13 +317,13 @@ def change_bd(value):
 
 @input_error
 def search(text_to_search: str):
-    """ Search contact where there is 'text_to_search'  """
+    """Search contact where there is 'text_to_search'"""
     return ContactInfo.get_info(text_to_search)
 
 
 @input_error
 def add_the_task(value):
-    """ Функція для додавання завдання в книгу завдань"""
+    """Функція для додавання завдання в книгу завдань"""
 
     try:
         name, deadline, text = value.lower().strip().split(" ", 2)
@@ -340,7 +339,7 @@ def add_the_task(value):
 
 @input_error
 def remove_the_task(value):
-    """ Функція для видалення завдання з книги завдань"""
+    """Функція для видалення завдання з книги завдань"""
 
     try:
         Id = int(value.strip())
@@ -354,13 +353,13 @@ def remove_the_task(value):
 
 @input_error
 def show_tasks(value):
-    """ Функція виводить перелік всіх завдань """
+    """Функція виводить перелік всіх завдань"""
     return TaskbookInfo.get_info(value)
 
 
 @input_error
 def change_d_line(value):
-    """ Функція змінює дедлайн завдання """
+    """Функція змінює дедлайн завдання"""
 
     Id, new_deadline = value.split()
     try:
@@ -376,7 +375,7 @@ def change_d_line(value):
 
 @input_error
 def search_in_task(text_to_search: str):
-    """ Шукаємо завдання по тексту """
+    """Шукаємо завдання по тексту"""
 
     text = text_to_search.strip().lower()
     return tasklist.search_task(text)
@@ -384,7 +383,7 @@ def search_in_task(text_to_search: str):
 
 @input_error
 def search_responce(name):
-    """ Шукаємо завдання по виконавцю """
+    """Шукаємо завдання по виконавцю"""
 
     name = name.strip().lower()
     return tasklist.search_respons_person(name)
@@ -397,7 +396,7 @@ def well_done(id):
 
 @input_error
 def clean_f(path):
-    """ функція викликає функції що відповідають за сортування файлів в вибраній теці """
+    """функція викликає функції що відповідають за сортування файлів в вибраній теці"""
     p = Path(path)
     try:
         create_folders(p)
@@ -465,73 +464,75 @@ handlers = {
     "done": well_done,
 }
 
-completer = NestedCompleter.from_nested_dict({
-    "add": {
-        "contact": {"<name> <phone> <phone> ... <phone>"},
-        "phone": {"<name> <one phone>"},
-        "email": {"<name> <e-mail>"},
-        "address": {"<name> <address>"},
-        "birthday": {"<name> <d/m/yyyy>"},
-        "note": {"<text>"},
-        "tags": {"<id> <tag1 tag2 tag3...>"},
-        "task": {"<name> <d/m/yyyy> <text of task>"},
-    },
-    "remove": {
-        "contact": {"<name>"},
-        "phone": {"<name> <old phone>"},
-        "email": {"<name>"},
-        "address": {"<name>"},
-        "birthday": {"<name>"},
+completer = NestedCompleter.from_nested_dict(
+    {
+        "add": {
+            "contact": {"<name> <phone> <phone> ... <phone>"},
+            "phone": {"<name> <one phone>"},
+            "email": {"<name> <e-mail>"},
+            "address": {"<name> <address>"},
+            "birthday": {"<name> <d/m/yyyy>"},
+            "note": {"<text>"},
+            "tags": {"<id> <tag1 tag2 tag3...>"},
+            "task": {"<name> <d/m/yyyy> <text of task>"},
+        },
+        "remove": {
+            "contact": {"<name>"},
+            "phone": {"<name> <old phone>"},
+            "email": {"<name>"},
+            "address": {"<name>"},
+            "birthday": {"<name>"},
+            "note": {"<id>"},
+            "task": {"<ID of task>"},
+        },
+        "change": {
+            "phone": {"<name> <old phone> <new phone>"},
+            "email": {"<name> <new e-mail>"},
+            "birthday": {"<name> <d/m/yyyy>"},
+            "address": {"<name> <new address>"},
+            "note": {"<id> <edited text>"},
+            "deadline": {"<ID of task> <d/m/yyyy>"},
+        },
+        "phone": {"<name>"},
+        "search": {
+            "notes": {"<text_to_search>"},
+            "tags ": {"<tag_to_search>"},
+            "contacts": {"<text_to_seach>"},
+            "tasks": {"<text_to_seach>"},
+        },
+        "good bye": None,
+        "close": None,
+        "exit": None,
+        "show": {
+            "addressbook": None,
+            "notes": None,
+            "tasks": None,
+        },
         "note": {"<id>"},
-        "task": {"<ID of task>"},
-    },
-    "change": {
-        "phone": {"<name> <old phone> <new phone>"},
-        "email": {"<name> <new e-mail>"},
-        "birthday": {"<name> <d/m/yyyy>"},
-        "address": {"<name> <new address>"},
-        "note": {"<id> <edited text>"},
-        "deadline": {"<ID of task> <d/m/yyyy>"},
-    },
-    "phone": {"<name>"},
-    "search": {
-        "notes": {"<text_to_search>"},
-        "tags ": {"<tag_to_search>"},
-        "contacts": {"<text_to_seach>"},
-        "tasks": {"<text_to_seach>"},
-    },
-    "good bye": None,
-    "close": None,
-    "exit": None,
-    "show": {
-        "addressbook": None,
-        "notes": None,
-        "tasks": None,
-    },
-    "note": {"<id>"},
-    "days to birthday": {"<name>"},
-    "birthdays": {"<number of days>"},
-    "clean-folder": {"<path to folder>"},
-    "hello": None,
-    "help": None,
-    "short help": None,
-    "done": {"<ID of task>"},
-    "responsible person": {"<name>"},
-    "currency": {
-        'USD': None,
-        'EUR': None,
-        'PLN': None,
-        'GBP': None,
-        'CZK': None,
-        'CNY': None,
-        'CAD': None,
+        "days to birthday": {"<name>"},
+        "birthdays": {"<number of days>"},
+        "clean-folder": {"<path to folder>"},
+        "hello": None,
+        "help": None,
+        "short help": None,
+        "done": {"<ID of task>"},
+        "responsible person": {"<name>"},
+        "currency": {
+            "USD": None,
+            "EUR": None,
+            "PLN": None,
+            "GBP": None,
+            "CZK": None,
+            "CNY": None,
+            "CAD": None,
+        },
     }
-})
+)
 
 
 def main():
     while True:
-        command = prompt('Enter command: ', completer=completer)
+        command = prompt("Enter command: ", completer=completer)
         command = command.strip().lower()
         if command in ("exit", "close", "good bye", "."):
             say_goodbye()
@@ -539,7 +540,7 @@ def main():
         else:
             for key in handlers:
                 if key in command:
-                    print(handlers[key](command[len(key):].strip()))
+                    print(handlers[key](command[len(key) :].strip()))
                     break
 
 
