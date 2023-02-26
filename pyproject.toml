@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "python-team-project-1"
+version = "0.1.0"
+description = ""
+authors = ["Artem <atlas.monker@gmail.com>"]
+readme = "README.md"
+packages = [{include = "python_team_project_1"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.28.2"
+pyttsx3 = "^2.90"
+
+
+[tool.poetry.group.dev.dependencies]
+black = {extras = ["d"], version = "^23.1.0"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
